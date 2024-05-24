@@ -1,0 +1,94 @@
+name: ci-release
+description: custom ci release action
+
+inputs:
+  secret_input:
+     description: "Github Secret"
+     required: true
+
+  gh_pat:
+    description: "Full accesss auth token"
+    required: false
+
+  release_as:
+    description: 'Bump version kind'
+    required: true
+    default: 'patch'
+
+  publish_type:
+    description: 'Publish type'
+    required: false
+    default: 'none'
+
+  push_to:
+    description: "Push to new branch after releasing"
+    default: 'none'
+
+  pre_action:
+    description: "Allowed values: checkout, none"
+    default: 'checkout'
+
+  should_build:
+    description: "Run yarn build automatically to generate dist"
+    default: 'false'
+
+  custom_publish_command_name:
+    description: "EX. registries:publish"
+    default: 'none'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repo
+      if: ${{ inputs.pre_action == 'checkout' }}
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        registry-url: 'https://npm.pkg.github.com'
+        node-version: '18'
+
+    - name: Git authentication
+      shell: bash
+      run: |
+          git config --global user.email "release@release.com"
+          git config --global user.name "Release CI"
+
+    - name: Install dependencies
+      run: corepack enable && yarn set version stable && YARN_ENABLE_IMMUTABLE_INSTALLS=false GH_PAT=${{ inputs.gh_pat }} yarn install
+      shell: bash
+
+    - name: Bump version, tag and create changelog
+      shell: bash
+      run: npx standard-version --release-as ${{ inputs.release_as }}
+
+    - name: Push changes
+      shell: bash
+      run: git push --follow-tags
+
+    - name: Build dependencies
+      if: ${{ inputs.should_build == 'true' }}
+      shell: bash
+      run: yarn build
+
+    - name: Publish version
+      if: ${{ inputs.publish_type == 'library' && inputs.workspace == 'none'}}
+      shell: bash
+      run: yarn npm publish
+      env:
+        GH_PAT: ${{ inputs.secret_input }}
+
+    - name: Publish workspace version
+      if: ${{ inputs.publish_type == 'library' && inputs.workspace != 'none'}}
+      shell: bash
+      run: yarn ${{inputs.custom_publish_command_name}}
+      env:
+        GH_PAT: ${{ inputs.secret_input }}
+
+    - if: ${{ inputs.push_to == 'staging' }}
+      uses: ad-m/github-push-action@master
+      with:
+        branch: staging
