@@ -64,10 +64,8 @@ jobs:
         uses: xotosphere/xotopipe-release-yarn@v0.0.1
         with:
           release_as: ${{ inputs.release_as }}
-          publish_type: "library"
-          secret_input: "${{ secrets.GITHUB_TOKEN }}"
-          gh_pat: "token"
-          pre_action: "checkout"
-          should_build: "false"
-          custom_publish_command_name: "registries:publish"
+          type: "library"
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          xotocross_github_access_token: "token"
+          build: "true"
 ```
