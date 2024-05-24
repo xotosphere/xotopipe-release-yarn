@@ -63,8 +63,8 @@ jobs:
       - name: release package
         uses: xotosphere/xotopipe-release-yarn@v0.0.1
         with:
-          release_as: ${{ inputs.release_as }}
-          type: "library"
+          as: ${{ inputs.release_as }}
+          registry: "true"
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           xotocross_github_access_token: "token"
           build: "true"

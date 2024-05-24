@@ -10,31 +10,31 @@ inputs:
     description: "Full accesss auth token"
     required: false
 
-  release_as:
+  as:
     description: 'Bump version kind'
     required: true
     default: 'patch'
 
-  type:
-    description: 'Publish type'
+  registry:
+    description: 'Should publish to npm package'
     required: false
-    default: 'none'
+    default: 'false'
 
   to:
     description: "Push to new branch after releasing"
     default: 'none'
 
-  action:
-    description: "Allowed values: checkout, none"
-    default: 'checkout'
+  checkout:
+    description: "Should checkout repo"
+    default: 'true'
 
   build:
     description: "Run yarn build automatically to generate dist"
     default: 'false'
 
-  monorepo:
-    description: "if enabled, runs yarn registries:publish to publish all packages"
-    default: 'false'
+  command:
+    description: "if enabled, runs a custom command to publish"
+    default: 'none'
 
   node:
     description: "Node version to use"
@@ -44,7 +44,7 @@ runs:
   using: "composite"
   steps:
     - name: Checkout repo
-      if: ${{ inputs.action == 'checkout' }}
+      if: ${{ inputs.checkout == 'true' }}
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -79,16 +79,16 @@ runs:
       run: yarn build
 
     - name: Publish version
-      if: ${{ inputs.type == 'library' && inputs.monorepo == 'false'}}
+      if: ${{ inputs.registry == 'true' && inputs.command == 'none'}}
       shell: bash
       run: yarn npm publish
       env:
         GH_PAT: ${{ inputs.github_token }}
 
     - name: Publish workspace version
-      if: ${{ inputs.type == 'library' && inputs.monorepo == 'true'}}
+      if: ${{ inputs.registry == 'true' && inputs.monorepo != 'none'}}
       shell: bash
-      run: yarn registries:publish
+      run: yarn ${{ inputs.command }}
       env:
         GH_PAT: ${{ inputs.github_token }}
 
