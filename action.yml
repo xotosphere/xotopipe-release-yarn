@@ -67,7 +67,7 @@ runs:
 
     - name: Bump version, tag and create changelog
       shell: bash
-      run: npx standard-version --release-as ${{ inputs.release_as }}
+      run: npx standard-version --release-as ${{ inputs.as }}
 
     - name: Push changes
       shell: bash
