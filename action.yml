@@ -88,7 +88,7 @@ runs:
     - name: Publish workspace version
       if: ${{ inputs.type == 'library' && inputs.monorepo == 'true'}}
       shell: bash
-      run: yarn ${{inputs.custom_publish_command_name}}
+      run: yarn registries:publish
       env:
         GH_PAT: ${{ inputs.github_token }}
 
