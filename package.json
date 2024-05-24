@@ -1,6 +1,6 @@
 {
 	"name": "@xotosphere/xotopipe-release-yarn",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"repository": "git@github.com:xotosphere/xotopipe-release-yarn.git",
 	"author": "xotoverse",
 	"scripts": {
@@ -13,5 +13,6 @@
 	"devDependencies": {
 		"@commitlint/cli": "^17.6.6",
 		"@commitlint/config-conventional": "^17.6.6"
-	}
+	},
+	"packageManager": "yarn@4.2.2"
 }
