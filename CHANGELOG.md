@@ -12,6 +12,24 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 🚚 chore
 
+* **release:** 0.0.1 ([8f2009e](https://github.com/xotosphere/xotopipe-release-yarn/commits8f2009e37e5ce5a8f4adadfe488372519581e781))
+* **release:** 0.0.1 ([0b370e1](https://github.com/xotosphere/xotopipe-release-yarn/commits0b370e14ec50292dcf030d4c36e0cb750fac141c))
+
+
+### ♻️ code refactoring
+
+* reset version ([b308f9d](https://github.com/xotosphere/xotopipe-release-yarn/commitsb308f9d1864fd788e97a93bd731a711f178ff1ef))
+
+### 0.0.1 (2024-05-24)
+
+
+### ✨ feature
+
+* init ([ccdbee4](https://github.com/xotosphere/xotopipe-release-yarn/commitsccdbee44b8d120a105c97b84aa87a59afd54309b))
+
+
+### 🚚 chore
+
 * **release:** 0.0.1 ([0b370e1](https://github.com/xotosphere/xotopipe-release-yarn/commits0b370e14ec50292dcf030d4c36e0cb750fac141c))
 
 ### 0.0.1 (2024-05-24)
