@@ -66,6 +66,6 @@ jobs:
           as: ${{ inputs.release_as }}
           registry: "true"
           github_token: "${{ secrets.GITHUB_TOKEN }}"
-          xotocross_github_access_token: "token"
+          access_token: "token"
           build: "true"
 ```

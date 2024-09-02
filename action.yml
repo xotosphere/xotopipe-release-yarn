@@ -2,11 +2,7 @@ name: ci-release
 description: custom ci release action
 
 inputs:
-  github_token:
-     description: "github secret"
-     required: true
-
-  xotocross_github_access_token:
+  access_token:
     description: "full accesss auth token"
     required: false
 
@@ -20,31 +16,18 @@ inputs:
     required: false
     default: 'false'
 
-  to:
-    description: "push to new branch after releasing"
-    default: 'none'
-
-  checkout:
-    description: "should checkout repo"
-    default: 'true'
-
   build:
     description: "run yarn build automatically to generate dist"
     default: 'false'
 
-  command:
-    description: "if enabled, runs a custom command to publish"
-    default: 'none'
-
   node:
     description: "node version to use"
-    default: '18'
+    default: '20'
 
 runs:
   using: "composite"
   steps:
     - name: Checkout repo
-      if: ${{ inputs.checkout == 'true' }}
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -62,7 +45,7 @@ runs:
           git config --global user.name "user CI"
 
     - name: Install dependencies
-      run: corepack enable && yarn set version stable && YARN_ENABLE_IMMUTABLE_INSTALLS=false GH_PAT=${{ inputs.xotocross_github_access_token }} yarn install
+      run: corepack enable && yarn set version stable && YARN_ENABLE_IMMUTABLE_INSTALLS=false ACCESS_TOKEN=${{ inputs.access_token }} yarn install
       shell: bash
 
     - name: Bump version, tag and create changelog
@@ -79,20 +62,8 @@ runs:
       run: yarn build
 
     - name: Publish version
-      if: ${{ inputs.registry == 'true' && inputs.command == 'none'}}
+      if: ${{ inputs.registry == 'true'}}
       shell: bash
       run: yarn npm publish
       env:
-        GH_PAT: ${{ inputs.github_token }}
-
-    - name: Publish workspace version
-      if: ${{ inputs.registry == 'true' && inputs.monorepo != 'none'}}
-      shell: bash
-      run: yarn ${{ inputs.command }}
-      env:
-        GH_PAT: ${{ inputs.github_token }}
-
-    - if: ${{ inputs.push_to == 'staging' }}
-      uses: ad-m/github-push-action@master
-      with:
-        branch: staging
+        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
