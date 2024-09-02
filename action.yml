@@ -3,33 +3,33 @@ description: custom ci release action
 
 inputs:
   github_token:
-     description: "Github Secret"
+     description: "github secret"
      required: true
 
   xotocross_github_access_token:
-    description: "Full accesss auth token"
+    description: "full accesss auth token"
     required: false
 
   as:
-    description: 'Bump version kind'
+    description: 'bump version kind'
     required: true
     default: 'patch'
 
   registry:
-    description: 'Should publish to npm package'
+    description: 'should publish to npm package'
     required: false
     default: 'false'
 
   to:
-    description: "Push to new branch after releasing"
+    description: "push to new branch after releasing"
     default: 'none'
 
   checkout:
-    description: "Should checkout repo"
+    description: "should checkout repo"
     default: 'true'
 
   build:
-    description: "Run yarn build automatically to generate dist"
+    description: "run yarn build automatically to generate dist"
     default: 'false'
 
   command:
@@ -37,7 +37,7 @@ inputs:
     default: 'none'
 
   node:
-    description: "Node version to use"
+    description: "node version to use"
     default: '18'
 
 runs:
