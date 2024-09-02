@@ -45,8 +45,8 @@ runs:
     - name: Git authentication
       shell: bash
       run: |
-          git config --global user.email "user@release.com"
-          git config --global user.name "user CI"
+          git config --global user.email "xotopipe@xotosphere.com"
+          git config --global user.name "xotopipe"
 
     - name: Install dependencies
       run: corepack enable && yarn set version stable && YARN_ENABLE_IMMUTABLE_INSTALLS=false ACCESS_TOKEN=${{ inputs.access_token }} yarn install
