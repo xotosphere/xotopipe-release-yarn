@@ -1,6 +1,6 @@
 {
 	"name": "@xotosphere/xotopipe-release-yarn",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"repository": "git@github.com:xotosphere/xotopipe-release-yarn.git",
 	"author": "xotoverse",
 	"scripts": {
