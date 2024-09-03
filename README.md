@@ -2,15 +2,7 @@
 
 This pipeline will bump the version in package.json, create a new tag version, update the changelog and push the commit with --follow-tags! This package uses the same pipeline for versioning.
 
-## Submodule VS Git Submodule
-
-The action will work for git sub modules and modules
-
-Context Submodule : You can publish all registries with the same version
-
-Context Git Submodule : You can publish with different versions
-
-## usage example
+## Usage example
 
 you can implement this custom action in your service by adding :
 
