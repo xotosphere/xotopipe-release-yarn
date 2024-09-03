@@ -10,17 +10,6 @@ Context Submodule : You can publish all registries with the same version
 
 Context Git Submodule : You can publish with different versions
 
-## parameters
-
-- secret_input: "Github Secret"
-- gh_pat: "Full accesss auth token"
-- release_as: 'Bump version kind'
-- publish_type: 'Publish type'
-- push_to: "Push to new branch after releasing"
-- pre_action: "Allowed values: checkout, none"
-- should_build: "Run yarn build automatically to generate dist"
-- custom_publish_command_name: "publish command for monorepo packages"
-
 ## usage example
 
 you can implement this custom action in your service by adding :
